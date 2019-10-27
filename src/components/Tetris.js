@@ -26,34 +26,57 @@ const Tetris = () => {
     //game over, just to tell us if game is over or not
     const [gameOver, setGameOver] = useState(false);
 
-    const [player] = usePlayer();
+    const [player, updatePlayerPos, resetPlayer] = usePlayer();
     const [stage, setStage] = useStage(player);
 
     console.log('re-render');
     //take direction as a parameter
-    const movePlayer = dir => {
 
+    const movePlayer = dir => {
+        //moving left or right
+        updatePlayerPos({ x: dir, y: 0 })
     }
 
     const startGame = () => {
+        //reset everything
+        setStage(createStage());
+        //custom hook
+        resetPlayer();
 
     }
 
     const drop = () => {
-
+        //increase the Y value on 1 and make the 
+        //tetromino go down
+        //custom hook
+        updatePlayerPos({ x: 0, y: 1, collided: false});
     }
 
     const dropPlayer = () => {
+        drop();
 
     }
 
     //callback function for check de keyboard presses
     const move = ({ keyCode }) => {
+        if(!gameOver){
+            if ( keyCode === 37 ){
+                //moving to the left
+                movePlayer(-1)
+            }
+            else if ( keyCode === 39 ) {
+                //moving to the right
+                movePlayer(1);
+            }
+            else if( keyCode === 40 ){
+                dropPlayer();
+            }
+        }
 
     }
 
     return (
-        <StyledTetrisWrapper>
+        <StyledTetrisWrapper role="button" tabIndex="0" onKeyDown={e => move(e)}>
             <StyledTetris>
             <Stage stage={stage}/>
             <aside>
@@ -68,7 +91,7 @@ const Tetris = () => {
                     </div>
                     )
                 }
-                <StartButton />
+                <StartButton onClick={startGame} />
             </aside> 
             </StyledTetris>
         </StyledTetrisWrapper>
