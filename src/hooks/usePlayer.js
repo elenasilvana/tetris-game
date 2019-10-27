@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { randomTetormino } from '../tetrominos';
+import { randomTetromino, TETROMINOS } from '../tetrominos';
 
 //important to name use because is a custom hook
 export const usePlayer = () => {
@@ -8,7 +8,7 @@ export const usePlayer = () => {
     const [player, setPlayer] = useState({
         //set an initial state for a player
         pos: { x: 0, y: 0},
-        tetromino: randomTetormino().shape,
+        tetromino: randomTetromino().shape,
         collided: false
     });
     
