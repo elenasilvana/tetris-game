@@ -68,6 +68,8 @@ export const randomTetromino = () => {
     const randTetromino = 
         //getting a random number from the lenght of tetrominos
         //thats how we get a position with a letter 
-        tetrominos[Math.floor(Math.random() * tetrominos.lenght)];
+        //console.log(tetrominos.charAt(0));
+        tetrominos.charAt(Math.floor(Math.random() * tetrominos.length));
+        //console.log(randTetromino);
     return TETROMINOS[randTetromino];
 }
