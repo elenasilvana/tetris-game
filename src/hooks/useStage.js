@@ -23,12 +23,17 @@ export const useStage = (player, resetPlayer) => {
           row.forEach((value, x) => {
             if (value !== 0) {
               newStage[y + player.pos.y][x + player.pos.x] = [
-                value,
+                value /* is the tetromino */,
                 `${player.collided ? "merged" : "clear"}`
               ];
             }
           });
         });
+
+        //check if we collided
+        if (player.collided) {
+          resetPlayer();
+        }
 
         return newStage;
       };
@@ -36,7 +41,8 @@ export const useStage = (player, resetPlayer) => {
       setStage(prev => updateStage(prev));
     },
     [
-      player
+      player,
+      resetPlayer
       /*  
       player.collided,
       player.pos.x,
